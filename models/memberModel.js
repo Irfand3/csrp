@@ -23,6 +23,18 @@ const memberSchema = mongoose.Schema(
         type: String,
         required: [true, 'Please add a member typr'],
     },
+    cardId: {
+      type: String,
+      required: [true, 'Please add a Card ID'],
+    },
+    startDate: {
+      type: String,
+      required: [true, 'Please add a Start Date'],
+    },
+    endDate: {
+      type: String,
+      required: [true, 'Please add a End Date'],
+    },
   },
   {
     timestamps: true,

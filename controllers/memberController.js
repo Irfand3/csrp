@@ -8,7 +8,7 @@ const MemberModel = require('../models/memberModel')
 // @access  Public
 const addMember = asyncHandler(async (req, res) => {
     console.log(req.body);
-  const { name, email, phone, address, category } = req.body
+  const { name, email, phone, address, category, cardId, startDate, endDate } = req.body
 
   if (!name || !email || !phone || !address || !category ) {
     res.status(400)
@@ -20,7 +20,10 @@ const addMember = asyncHandler(async (req, res) => {
     email,
     telephone: phone,
     address,
-    memberType: category
+    memberType: category,
+    cardId,
+    startDate,
+    endDate
   })
 
   if (member) {
@@ -30,7 +33,10 @@ const addMember = asyncHandler(async (req, res) => {
       email: member.email,
       telephone: member.telephone,
       address: member.address,
-      memberType: member.memberType
+      memberType: member.memberType,
+      cardId: member.cardId,
+      startDate,
+      endDate
     })
   } else {
     res.status(400)
