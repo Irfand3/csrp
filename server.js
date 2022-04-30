@@ -26,6 +26,7 @@ app.use('/api/goals', require('./routes/goalRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/memberTypes', require('./routes/memberTypeRoutes'))
 app.use('/api/members', require('./routes/memberRoutes'))
+app.use('/api/gym', require('./routes/statisticsRoute'))
 
 app.use(errorHandler)
 
@@ -50,22 +51,19 @@ console.log('connected: ');
 reader.on('card', card => {
   console.log(`${reader.reader.name} card detected`, card);
   const id = card.uid
-if (request.resource === "/") {
-    MemberModel.find({ cardId: id }).then( member =>  
+    MemberModel.findOne({ cardId: id }).then( member =>  
     { 
-      console.log(member)
-        connection.sendUTF(JSON.stringify(member))
-    })
-  
-}
-else if (request.resource === "/dodaj-clana") 
-{
-  const member = {
-    memberCardId: card.uid
-    }
-    connection.sendUTF(JSON.stringify(member))
-}
+      if (member) {
 
+          connection.sendUTF(JSON.stringify(member))
+      }
+      else {
+        const newMemberId = {
+        memberCardId: card.uid
+        }
+        connection.sendUTF(JSON.stringify(newMemberId))
+      }
+    })
 });
 });
 })

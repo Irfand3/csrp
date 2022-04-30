@@ -97,14 +97,15 @@ const getMemberById = asyncHandler(async (req, res) => {
 })
 
 const updateMemberById = asyncHandler(async (req, res) => {
-    const member = await Member.findById(req.params.id)
+    const member = await MemberModel.findById(req.params.id)
 
     if (!member) {
       res.status(400)
       throw new Error('Member not found')
     }
 
-    const updatedMember = await Member.findByIdAndUpdate(req.params.id, req.body)
+    console.log("dada", req.body)
+    const updatedMember = await MemberModel.findByIdAndUpdate(req.params.id, req.body)
   
     res.status(200).json({ member: updatedMember })
 })
