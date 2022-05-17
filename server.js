@@ -51,6 +51,7 @@ console.log('connected: ');
 reader.on('card', card => {
   console.log(`${reader.reader.name} card detected`, card);
   const id = card.uid
+  console.log(id)
     MemberModel.findOne({ cardId: id }).then( member =>  
     { 
       if (member) {
